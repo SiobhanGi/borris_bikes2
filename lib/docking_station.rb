@@ -16,13 +16,13 @@ class DockingStation
   end
 
   def dock(bike)
-    puts @bikes.size
-    puts "******"
      if @bikes.size < 20
-       puts @bikes.size
       @bikes << bike
      else
        fail RuntimeError, "Bike already docked"
+     end
+
+     def full?
      end
   end
 
