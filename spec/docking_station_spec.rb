@@ -1,26 +1,25 @@
 require 'docking_station'
 
 describe DockingStation do
-  it { is_expected.to respond_to :release_bike}
-  it "check bike working?" do
+  it "checks if bike is working" do # checks if bike is working....
     expect(Bike.new.working?).to eq true
   end
-  it "bike docked" do
-    bike = Bike.new
-    expect(subject.dock(bike)).to eq bike
-  end
 
-describe "#release_bike" do
-  it " releases a bike" do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.release_bike).to eq bike
-  end
+  it { is_expected.to respond_to(:dock).with(1).argument} # checks if subject responds to dock method with 1 argument
 
-  it "raise error if no bikes are docked" do
-    expect { subject.release_bike }.to raise_error
-  end
+it "raises error if #dock capacity is exceeded" do
+  bike = Bike.new
+  expect (:dock).to receive(bike).exactly(20.times) #to raise_error
 end
 
+  it "raises error if #dock capacity is exceeded" do
+    expect { subject.dock(bike) }.to raise_error
+  end
+  # expect(...).to receive(...).exactly(n).times
 
+  it {is_expected.to respond_to(:release_bike)} # checks whether subject responds to release_bike method.
+
+  it "raise error if #release_bike has no bikes" do # error raised if #bikes doesn't equal true
+     expect { subject.release_bike }.to raise_error
+  end
 end
