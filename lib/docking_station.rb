@@ -5,26 +5,33 @@ class DockingStation
 
   def initialize
     @bikes = []
+
   end
 
   def release_bike
-    if @bikes.size > 0 # if true return bike
-      @bikes.pop
-    else
+    if empty? # if true return bike
       fail RuntimeError, "No bikes available."
+    else
+      @bikes.pop
     end
   end
 
-  def dock(bike)
-     if @bikes.size < 20
-      @bikes << bike
-     else
-       fail RuntimeError, "Bike already docked"
-     end
-
-     def full?
-     end
+def dock(bike)
+  if full?
+    fail RuntimeError, "Bike already docked"
+  else
+    @bikes << bike
   end
+end
 
+ private
+
+ def full?
+   @bikes.size >= 20
+ end
+
+ def empty?
+   @bikes.size < 1
+ end
 
 end
