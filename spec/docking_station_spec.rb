@@ -5,11 +5,12 @@ describe DockingStation do
     expect(Bike.new.working?).to eq true
   end
 
-  it { is_expected.to respond_to(:dock).with(1).argument} # checks if subject responds to dock method with 1 argument
-
-it "raises error if #dock capacity is exceeded" do
-  bike = Bike.new
-  expect (:dock).to receive(bike).exactly(20.times) #to raise_error
+  # it { is_expected.to respond_to(:dock).with(1).argument} # checks if subject responds to dock method with 1 argument
+describe '#dock' do
+  it "raises error if #dock capacity is exceeded" do
+    bike = Bike.new
+    21.times { subject.dock bike }.to raise_error #max cap is 20, raises error if exceeded
+  end
 end
 
   it "raises error if #dock capacity is exceeded" do
