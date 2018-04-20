@@ -5,19 +5,24 @@ describe DockingStation do
     expect(Bike.new.working?).to eq true
   end
 
-  it "raises error if #dock capacity is exceeded" do
-    expect { subject.dock(bike) }.to raise_error
-  end
-
   it "raise error if #release_bike has no bikes" do # error raised if #bikes doesn't equal true
      expect { subject.release_bike }.to raise_error
   end
 
-  describe '#dock' do
+  describe '#release_bike' do #  remove number of bikes that exceeds max cap
+    it 'raises error if there are no remaining bikes in dock' do
+      bike = Bike.new
+      subject.MAX_CAPACITY.times {subject.dock bike }
+      subject.MAX_CAPACITY.times {subject.release_bike }
+      expect { subject.release_bike }.to raise_error, RuntimeError
+    end
+  end
+
+  describe '#dock' do #  max cap is 20, raises error if exceeded
     it "raises error if #dock capacity is exceeded" do
       bike = Bike.new
-      20.times { subject.dock bike }
-      expect { subject.dock bike }.to raise_error #max cap is 20, raises error if exceeded
+      subject.MAX_CAPACITY.times { subject.dock bike }
+      expect { subject.dock bike }.to raise_error
     end
   end
 end
